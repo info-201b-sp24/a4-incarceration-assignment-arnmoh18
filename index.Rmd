@@ -1,71 +1,140 @@
 ---
 title: "A3: Incarceration"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(dplyr)
+library(readxl)
+```
 
 ### Introduction
 
-An introduction of the problem domain and a description of the variable(s) you are choosing to analyze (and why!)
+The problem domain we are exploring is the incarceration rates in the United States, with a specific focus on the state of Washington.
+We are analyzing several variables in this context:
+
+Total Prison Population: This variable represents the total prison population in the United States over time.
+It is chosen for analysis to understand the trend of the prison population over the years.
+This can help identify whether the prison population is increasing, decreasing, or remaining stable over time.
+
+Black and White Prison Populations: These variables represent the prison populations of Black and White individuals in the United States over time.
+They are chosen for analysis to compare the incarceration rates between these two racial groups.
+This can provide insights into potential racial disparities in the U.S. prison system.
+
+Total Jail Population Rate: This variable represents the total jail population rate in different counties of Washington state.
+It is chosen for analysis because it provides insights into the distribution of incarcerated individuals across different regions within the state.
+This data is visualized on a map to provide a geographical perspective of the jail population rate.
+
+These variables are analyzed using various data visualization techniques, including line graphs and geographical maps, to provide a comprehensive understanding of the incarceration rates in the U.S. and Washington state.
+The data is sourced from publicly available datasets and processed using R programming language and various libraries such as ggplot2, readr, maps, janitor, and stringr.
+The data is cleaned, filtered, and merged to prepare it for analysis.
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
+The highest black prison population was recorded in the year 1998, while the lowest black prison population was observed in the year 1986.
+This suggests that there has been a significant fluctuation in the black prison population over the years.
 
-These will likely be calculated using your DPLYR skills, answering questions such as: 
+The peak total prison population across all races was reached in the year 2007.
+This indicates that the total prison population has also seen considerable changes over time.
 
-- What is the average value of my variable across all the counties (in the current year)?
-- Where is my variable the highest / lowest?
-- How much has my variable change over the last N years?
+When we look at the county-level data for the state of Washington, we find that Yakima County has the highest total jail population rate.
+On the other hand, Whitman County has the lowest total jail population rate.
 
-Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
+These findings highlight the disparities in incarceration rates across different counties and racial groups.
+It underscores the importance of continued research and policy interventions to address these disparities and ensure a more equitable justice system.
 
 ### The Dataset
 
-Who collected the data?  
-How was the data collected or generated?  
-Why was the data collected?  
-How many observations (rows) are in your data?  
-How many features (columns) are in the data?  
-What, if any, ethical questions or questions of power do you need to consider when working with this data?  
-What are possible limitations or problems with this data?   (at least 200 words)
+Who collected the data?
+The data has been collected by the Vera Institute of Justice.
 
+How was the data collected or generated?
+The data in the dataset was collected through a variety of sources such as the National Corrections Reporting Program (NCRP), Deaths in Custody Reporting Program (DCRP), Annual Survey of Jails (ASJ), Census of Jails (COJ), Census of State and Federal Adult Correctional Facilities(CAF), FBI Uniform Crime Reporting Program (UCR), CDC, U.S. Department of Agriculture, U.S. Census Bureau.
+
+Why was the data collected?
+The data aimed to provide a comprehensive overview of jail populations in every U.S. county.
+The project released data tools and publications that shed light on important aspects of criminal justice reform.
+The research centered on county-level data, as it is largely county officials - judges, prosecutors, people who manage jails - that decide how communities use incarceration.
+Therefore, county-level variability makes for more robust, theoretically-grounded studies of the high rates of incarceration seen across the United States
+
+How many observations (rows) are in your data?
+I used 2 datasets for this data analysis.
+The number of rows per dataset can be seen below: -Prison/jail population per 100,000 people (rate) per county/state starting at 1990 in Washington: 1131 -Prison population per county/state: 153811
+
+How many features (columns) are in the data?
+I used 2 datasets for this data analysis.
+The number of features (columns) per dataset can be seen below: -Prison/jail population per 100,000 people (rate) per county/state starting at 1990 in Washington: 23 -Prison population per county/state: 36
+
+What, if any, ethical questions or questions of power do you need to consider when working with this data?
+Privacy is a major concern when dealing with this data.
+Even though the data is aggregated at the county level, it’s important to ensure that no individual can be identified from the data.
+The data collected might be influenced by systemic biases present in the criminal justice system.
+For example, certain groups might be overrepresented in the data due to discriminatory practices.
+The accuracy of the data is dependent on the reporting practices of each county.
+Some counties might have more reporting standards than others, leading to inconsistencies in the data.
+
+What are possible limitations or problems with this data?
+(at least 200 words) The data is dependent on the accuracy of the reporting by each county.
+If a county reports inaccurate data, it will affect the overall accuracy of the dataset.
+The data provides numbers but lacks context.
+For example, it doesn’t provide information on the policies or practices that led to the incarceration rates in each county.
+The data might not capture temporal variations accurately.
+For example, a county might have changed its reporting practices over time, leading to inconsistencies in the data.
 
 ### Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+In reference to the chart, it’s evident that there has been a significant increase in the prison population since 1984, spanning a decade.
+These years were specifically selected due to the sharp upward trend observed during this period.
+The chart continues to show an ongoing rise in the prison population.
 
-The first chart that you will create and include will show the trend over time of your variable/topic. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - This may mean showing the same measure for different locations or different racial groups. Think carefully about a meaningful comparison of locations (e.g., the top 10 counties in a state, top 10 states, etc.)
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart1_example.R")}
+```{r chart1, echo=FALSE}
+source("/Users/arnav/Desktop/INFO201/a4-incarceration-assignment-arnmoh18/prison_population_overtime.R")
+ggplot(data, aes(x = year, y = total_prison_pop)) +
+  geom_line() +
+  labs(title = "Trend of Prison Population Over Time",
+       x = "Year",
+       y = "Total Prison Population") +
+  theme_minimal()
 ```
 
 ### Variable Comparison Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+The chart was included to visually represent the disparities in incarceration rates between Black and White populations over several decades.
 
-The second chart that you will create and include will show how two different (continuous) variables are related to one another. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+Starting from 1970, both the Black and White prison populations were at similar levels.
+However, from the late 1980s onwards, there was an increase in the Black prison population compared to the White prison population.
+This trend continued with high numbers for the Black prison population until around 2010, after which it appears to decrease slightly but still remains higher than that of the White prison population.
 
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
+```{r chart2, echo=FALSE}
+source("/Users/arnav/Desktop/INFO201/a4-incarceration-assignment-arnmoh18/prison_population_overtime.R")
+ggplot() +
+  geom_line(data = data, aes(x = year, y = black_prison_pop, color = "Black Prison Population")) +
+  geom_line(data = data, aes(x = year, y = white_prison_pop, color = "White Prison Population")) +
+  labs(title = "Comparison of Black and White Prison Populations Over Time",
+       x = "Year",
+       y = "Population",
+       color = "Population Type") +
+  theme_minimal()
+```
 
 ### Map
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+This chart shows the geographical distribution of the jail population rate.The map uses shades of red to represent the population rate, with darker shades indicating higher rates. It’s evident that the jail population rate varies across different counties in Washington State. This geographical distribution can be relevant for studies on demographics, criminal justice, or resource allocation within the state.
 
-The last chart that you will create and include will show how a variable is distributed geographically. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Your map needs a title
-- Your color scale needs a legend with a clear label
-- Use a map based coordinate system to set the aspect ratio of your map
-
+```{r chart3, echo=FALSE}
+source("/Users/arnav/Desktop/INFO201/a4-incarceration-assignment-arnmoh18/rate_wa.R")
+ggplot() +
+  geom_polygon(data = merged_data, aes(x = long, y = lat, group = group, fill = total_jail_pop_rate), color = "black", size = 0.1) +
+  scale_fill_continuous(low = 'white', high = 'red', name = "Total Jail Pop. Rate",
+                        label = scales::comma) +
+  coord_map() +
+  theme_minimal() +
+  labs(title = "Total Jail Population Rate in Washington State by County")
+```
